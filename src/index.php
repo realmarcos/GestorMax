@@ -5,7 +5,6 @@ if (isset($_SESSION['id_usuario'])) {
     header("Location: dashboard.php");
     exit;
 }
-// Não precisa do header.php aqui, é uma página separada
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

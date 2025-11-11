@@ -6,7 +6,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $conn->real_escape_string($_POST['email']);
     $senha_digitada = $_POST['senha'];
 
-    // Usar prepared statements para segurança
     $sql = "SELECT id_usuario, nome, email, senha FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);

@@ -1,32 +1,26 @@
 <?php
-// 1. Inclusões e Verificações
+
 require '../templates/header.php';
 require '../auth_check.php';
 require '../database/db_connect.php';
 
 $mensagem = "";
 
-// 2. Lógica de CADASTRO (Processamento do POST)
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_produto'])) {
 
-    // Coleta os dados
     $nome_produto = $conn->real_escape_string($_POST['nome_produto']);
     $descricao = $conn->real_escape_string($_POST['descricao']);
-    $preco_venda = $_POST['preco_venda']; // Será tratado como número
-    $estoque = $_POST['estoque'];         // Será tratado como número
+    $preco_venda = $_POST['preco_venda']; 
+    $estoque = $_POST['estoque'];        
 
-    // Validação simples (pode ser melhorada)
     if (!is_numeric($preco_venda) || !is_numeric($estoque)) {
         $mensagem = "Erro: Preço e Estoque devem ser números.";
     } else {
-        // Prepara a query de inserção
         $sql_insert = "INSERT INTO produtos (nome_produto, descricao, preco_venda, estoque) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql_insert);
 
-        // "s" = string, "d" = double (decimal), "i" = integer
         $stmt->bind_param("ssdi", $nome_produto, $descricao, $preco_venda, $estoque);
 
-        // Executa a query
         if ($stmt->execute()) {
             header("Location: produtos.php?sucesso=1");
             exit;
@@ -37,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_produto'])) 
     }
 }
 
-// 3. Lógica de LEITURA (SELECT para a tabela)
 $sql_select = "SELECT id_produto, nome_produto, preco_venda, estoque FROM produtos ORDER BY nome_produto ASC";
 $result_produtos = $conn->query($sql_select);
 
@@ -46,7 +39,6 @@ $result_produtos = $conn->query($sql_select);
 <h1 class="text-3xl font-bold text-gray-800 mb-6">Gestão de Produtos</h1>
 
 <?php
-// Mensagem de feedback
 if (isset($_GET['sucesso'])) {
     echo '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">Produto cadastrado com sucesso!</div>';
 }
@@ -104,7 +96,6 @@ if (!empty($mensagem) && !isset($_GET['sucesso'])) {
                         <td class="py-2 px-4"><?php echo htmlspecialchars($produto['nome_produto']); ?></td>
                         <td class="py-2 px-4">
                             <?php
-                            // Formata o preço para o padrão brasileiro
                             echo "R$ " . number_format($produto['preco_venda'], 2, ',', '.');
                             ?>
                         </td>
@@ -124,7 +115,6 @@ if (!empty($mensagem) && !isset($_GET['sucesso'])) {
 </div>
 
 <?php
-// 7. Inclusão do Footer e Fechamento da Conexão
 $conn->close();
 require '../templates/footer.php';
 ?>

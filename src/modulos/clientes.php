@@ -1,31 +1,26 @@
 <?php
-// 1. Inclusões e Verificações
-require '../templates/header.php'; // Inclui o <head>, <body>, e o menu (e já dá session_start())
-require '../auth_check.php';      // Garante que o usuário está logado
-require '../database/db_connect.php';      // Conecta ao banco de dados
 
-$mensagem = ""; // Variável para feedback (sucesso ou erro)
+require '../templates/header.php'; 
+require '../auth_check.php';      
+require '../database/db_connect.php';      
 
-// 2. Lógica de CADASTRO (Processamento do POST)
+$mensagem = ""; 
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_cliente'])) {
 
-    // Coleta e limpa os dados do formulário
     $nome = $conn->real_escape_string($_POST['nome']);
     $email = $conn->real_escape_string($_POST['email']);
     $telefone = $conn->real_escape_string($_POST['telefone']);
     $endereco = $conn->real_escape_string($_POST['endereco']);
 
-    // Prepara a query de inserção (Usando Prepared Statements para segurança)
     $sql_insert = "INSERT INTO clientes (nome, email, telefone, endereco) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql_insert);
 
-    // "s" = string. Estamos passando 4 strings.
     $stmt->bind_param("ssss", $nome, $email, $telefone, $endereco);
 
-    // Executa a query
     if ($stmt->execute()) {
         $mensagem = "Cliente cadastrado com sucesso!";
-        // Limpar o POST para evitar reenvio com F5 (Redirecionamento)
         header("Location: clientes.php?sucesso=1");
         exit;
     } else {
@@ -34,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_cliente'])) 
     $stmt->close();
 }
 
-// 3. Lógica de LEITURA (SELECT para a tabela)
 $sql_select = "SELECT id_cliente, nome, email, telefone, endereco FROM clientes ORDER BY nome ASC";
 $result_clientes = $conn->query($sql_select);
 
@@ -43,7 +37,7 @@ $result_clientes = $conn->query($sql_select);
 <h1 class="text-3xl font-bold text-gray-800 mb-6">Gestão de Clientes</h1>
 
 <?php
-// Mensagem de feedback (seja de sucesso via GET ou erro via POST)
+
 if (isset($_GET['sucesso'])) {
     echo '<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4" role="alert">Cliente cadastrado com sucesso!</div>';
 }
@@ -118,7 +112,7 @@ if (!empty($mensagem) && !isset($_GET['sucesso'])) {
 </div>
 
 <?php
-// 7. Inclusão do Footer e Fechamento da Conexão
+
 $conn->close();
 require '../templates/footer.php';
 ?>

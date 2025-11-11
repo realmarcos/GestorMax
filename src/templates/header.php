@@ -17,8 +17,7 @@ session_start();
 <body class="bg-gray-100">
 
   <?php
-  // Só mostra o menu se a página NÃO for a de login (index.php)
-  // Verificamos se a sessão de usuário existe
+
   if (isset($_SESSION['id_usuario'])):
   ?>
     <nav class="bg-white shadow-md">
@@ -43,7 +42,3 @@ session_start();
   <?php endif; ?>
 
 
-  
-</body>
-
-</html>

@@ -106,7 +106,8 @@ $faturamento_total = $result_faturamento->fetch_assoc()['faturamento_total'] ?? 
 
 
 <?php
-// 4. Fechamento
-$conn->close(); // Fecha a conexão com o banco
-require 'templates/footer.php'; // Inclui o fechamento do </body> e </html>
+
+
+$conn->close(); 
+require 'templates/footer.php'; 
 ?>

@@ -4,3 +4,7 @@
         &copy; <?php echo date('Y'); ?> Gestor Max.
     </footer>
 </main>
+  
+</body>
+
+</html>

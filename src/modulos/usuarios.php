@@ -1,9 +1,8 @@
 <?php
-require '../templates/header.php'; // Inclui header (e inicia sessão)
-require '../auth_check.php';      // Verifica se está logado
-require '../database/db_connect.php';      // Conecta ao banco
+require '../templates/header.php';
+require '../auth_check.php'; 
+require '../database/db_connect.php';  
 
-// Lógica para INSERIR novo usuário
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_usuario'])) {
     $nome = $conn->real_escape_string($_POST['nome']);
     $email = $conn->real_escape_string($_POST['email']);
@@ -25,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_usuario'])) 
     $stmt->close();
 }
 
-// Lógica para LISTAR usuários
 $sql_select = "SELECT id_usuario, nome, email, nivel_acesso FROM usuarios ORDER BY nome";
 $result_usuarios = $conn->query($sql_select);
 
