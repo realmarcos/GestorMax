@@ -98,7 +98,8 @@ if (!empty($mensagem) && !isset($_GET['sucesso'])) {
                         <td class="py-2 px-4"><?php echo htmlspecialchars($cliente['telefone']); ?></td>
                         <td class="py-2 px-4"><?php echo htmlspecialchars($cliente['endereco']); ?></td>
                         <td class="py-2 px-4">
-                            <a href="#" class="text-yellow-500 hover:text-yellow-700">Editar</a>
+                              <a href="#" class="text-yellow-500 hover:text-yellow-700 mx-2">Editar</a>
+                            <a href="#" class="text-red-500 hover:text-red-700 mx-2">Excluir</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>

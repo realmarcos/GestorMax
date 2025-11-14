@@ -1,7 +1,7 @@
 <?php
 require '../templates/header.php';
-require '../auth_check.php'; 
-require '../database/db_connect.php';  
+require '../auth_check.php';
+require '../database/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cadastrar_usuario'])) {
     $nome = $conn->real_escape_string($_POST['nome']);
@@ -60,7 +60,8 @@ $result_usuarios = $conn->query($sql_select);
                 <option value="admin">Administrador</option>
             </select>
         </div>
-        <button type="submit" name="cadastrar_usuario" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        <button type="submit" name="cadastrar_usuario"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Salvar Usuário
         </button>
     </form>
@@ -83,8 +84,9 @@ $result_usuarios = $conn->query($sql_select);
                     <td class="py-2 px-4"><?php echo htmlspecialchars($user['nome']); ?></td>
                     <td class="py-2 px-4"><?php echo htmlspecialchars($user['email']); ?></td>
                     <td class="py-2 px-4"><?php echo htmlspecialchars($user['nivel_acesso']); ?></td>
-                    <td class="py-2 px-4">
-                        <a href="#" class="text-yellow-500 hover:text-yellow-700">Editar</a>
+                    <td class="py-2 px-8">
+                        <a href="#" class="text-yellow-500 hover:text-yellow-700 mx-2">Editar</a>
+                        <a href="#" class="text-red-500 hover:text-red-700 mx-2">Excluir</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

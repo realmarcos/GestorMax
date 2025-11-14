@@ -43,7 +43,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nome`, `email`, `telefone`, `endereco`) VALUES
-(1, 'Testando ', 'test@example.com', '111111111111111111', '');
+(1, 'CONSUMIDOR FINA ', 'test@example.com', '111111111111111111', '');
 
 -- --------------------------------------------------------
 
